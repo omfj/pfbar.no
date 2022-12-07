@@ -1,5 +1,5 @@
 {
-  "name": "pfbar-pocketbase",
+  "name": "pfbar.no",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,11 +12,25 @@
     "@types/node": "18.11.10",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
+    "class-variance-authority": "^0.4.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "firebase": "^9.14.0",
     "next": "13.0.6",
+    "next-pwa": "^5.6.0",
+    "pocketbase": "^0.8.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.7.1",
+    "react-markdown": "^8.0.4",
+    "remark-gfm": "^3.0.1",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4"
   }
 }
