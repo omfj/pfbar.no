@@ -7,17 +7,20 @@ const AccountPage = () => {
   const supabase = useSupabaseClient();
 
   return (
-    <div className="max-w-[600px] mx-auto px-3">
+    <>
       {!session ? (
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          theme="light"
-        />
+        <div className="max-w-4xl mx-auto">
+          <Auth
+            supabaseClient={supabase}
+            appearance={{ theme: ThemeSupa }}
+            theme="light"
+            // providers={["google"]}
+          />
+        </div>
       ) : (
         <Account session={session} />
       )}
-    </div>
+    </>
   );
 };
 
