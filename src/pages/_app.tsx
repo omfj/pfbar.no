@@ -8,6 +8,7 @@ import Layout from "@/components/layout";
 
 import "@/styles/globals.css";
 import { Toaster } from "react-hot-toast";
+import Head from "next/head";
 
 const cardo = Cardo({
   weight: "400",
@@ -27,6 +28,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
           }
         `}
       </style>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <Toaster
         toastOptions={{
           className: "",
