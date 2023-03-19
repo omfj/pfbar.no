@@ -8,7 +8,7 @@ const Banner: React.FC = () => {
       <p className="text-sm">
         {session?.user?.name
           ? `Hei, ${session?.user?.name}!`
-          : "Du burde logge inn"}
+          : "Logg inn for å bestille!"}
       </p>
     </div>
   );

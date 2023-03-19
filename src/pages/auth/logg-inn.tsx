@@ -2,10 +2,22 @@ import { type GetServerSideProps } from "next";
 import { type Provider } from "next-auth/providers";
 import { getProviders, signIn } from "next-auth/react";
 import Head from "next/head";
+import { BsGoogle, BsDiscord } from "react-icons/bs";
 
 import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { getServerAuthSession } from "@/server/auth";
+
+const getIcon = (provider: Provider) => {
+  switch (provider.id) {
+    case "google":
+      return <BsGoogle />;
+    case "discord":
+      return <BsDiscord />;
+    default:
+      return null;
+  }
+};
 
 type Props = {
   providers: Array<Provider>;
@@ -29,8 +41,10 @@ const SignInPage: React.FC<Props> = ({ providers }) => {
             <li key={provider.id}>
               <Button
                 onClick={() => void signIn(provider.id, { callbackUrl: "/" })}
+                className="flex items-center justify-center gap-3"
                 fullWidth
               >
+                {getIcon(provider)}
                 Logg inn med {provider.name}
               </Button>
             </li>
