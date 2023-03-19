@@ -44,7 +44,7 @@ const ProductPage: React.FC<Props> = ({ products }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const products = await prisma.product.findMany();
 
   return {
