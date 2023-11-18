@@ -7,10 +7,15 @@ export default {
     fontFamily: {
       primary: ["var(--inter-font)", ...fontFamily.sans],
     },
+    container: {
+      center: true,
+      padding: "1rem",
+    },
     extend: {
       colors: {
         foreground: "#000",
         background: "#fff",
+        primary: "#ffd1dc",
       },
       keyframes: {
         "accordion-down": {

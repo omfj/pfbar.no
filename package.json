@@ -1,25 +1,35 @@
 {
-  "name": "my-next-app",
+  "name": "pink-flamingo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "run-p *:dev",
+    "web:dev": "next dev",
+    "web:build": "next build",
+    "web:start": "next start",
     "lint": "next lint",
+    "db:dev": "drizzle-kit studio",
+    "db:generate": "drizzle-kit generate:sqlite",
+    "db:migrate": "tsx drizzle/migrate.ts",
+    "db:seed": "tsx drizzle/seed.ts",
     "pages:build": "npx @cloudflare/next-on-pages",
     "pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
     "pages:watch": "npx @cloudflare/next-on-pages --watch",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-10-30 --compatibility-flag=nodejs_compat"
+    "pages:start": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-10-30 --compatibility-flag=nodejs_compat"
   },
   "dependencies": {
+    "@libsql/client": "0.4.0-pre.1",
     "clsx": "^2.0.0",
     "drizzle-orm": "^0.29.0",
+    "nanoid": "^5.0.3",
     "next": "14.0.3",
+    "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18",
     "server-only": "^0.0.1",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "zod": "^3.22.4",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.7.3",
@@ -34,6 +44,7 @@
     "eslint": "8.53.0",
     "eslint-config-next": "14.0.3",
     "eslint-plugin-next-on-pages": "^1.7.3",
+    "npm-run-all": "^4.1.5",
     "postcss": "8.4.31",
     "tailwindcss": "3.3.5",
     "tailwindcss-animate": "^1.0.7",
