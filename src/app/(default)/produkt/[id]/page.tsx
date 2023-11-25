@@ -34,8 +34,12 @@ export default async function Product({ params }: Props) {
   const product = await getData(params.id);
 
   return (
-    <Container as="main" className="grid grid-cols-1 md:grid-cols-2">
-      <div></div>
+    <Container as="main" className="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div>
+        <div className="border-2 flex flex-col rounded-3xl shadow-lg items-center justify-center border-black bg-gray-200 h-60">
+          <p className="text-gray-600">Ingen bilde...</p>
+        </div>
+      </div>
       <div className="flex flex-col gap-8">
         <div>
           <h1 className="text-4xl font-medium">{product.name}</h1>

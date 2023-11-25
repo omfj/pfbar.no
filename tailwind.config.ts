@@ -13,9 +13,9 @@ export default {
     },
     extend: {
       colors: {
-        foreground: "#000",
+        foreground: "#0a0a0a",
         background: "#fff",
-        primary: "#ffd1dc",
+        primary: "#ffacc0",
       },
       keyframes: {
         "accordion-down": {

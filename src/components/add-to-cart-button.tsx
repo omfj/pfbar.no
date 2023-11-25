@@ -1,7 +1,8 @@
 "use client";
 
-import { addProductToCart } from "@/actions/add-product-to-cart";
+import { mutateCart } from "@/actions/cart-actions";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 
 type AddToCartProps = {
   productId: string;
@@ -11,17 +12,10 @@ export function AddToCart({ productId }: AddToCartProps) {
   const router = useRouter();
 
   const handleAddToCart = async () => {
-    await addProductToCart(productId);
+    await mutateCart("add", productId);
 
     router.refresh();
   };
 
-  return (
-    <button
-      className="px-6 py-2 bg-primary rounded-lg"
-      onClick={handleAddToCart}
-    >
-      Legg til i handlekurv
-    </button>
-  );
+  return <Button onClick={handleAddToCart}>Legg til i handlekurv</Button>;
 }

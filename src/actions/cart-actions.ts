@@ -5,7 +5,9 @@ import { db } from "@/db/drizzle";
 import { carts } from "@/db/schemas";
 import { eq } from "drizzle-orm";
 
-export async function addProductToCart(productId: string) {
+type CartAction = "add" | "remove" | "set";
+
+export async function mutateCart(action: CartAction, productId: string) {
   try {
     const session = await getSession();
 
@@ -30,10 +32,28 @@ export async function addProductToCart(productId: string) {
       where: (cart) => eq(cart.userId, session.user.id),
     });
 
-    const updatedContent = {
-      ...cart?.content,
-      [product.id]: (cart?.content?.[product.id] ?? 0) + 1,
-    };
+    let updatedContent = { ...cart?.content };
+
+    if (action === "add") {
+      if (updatedContent[productId]) {
+        updatedContent[productId] += 1;
+      } else {
+        updatedContent[productId] = 1;
+      }
+    } else if (action === "remove") {
+      if (updatedContent[productId]) {
+        updatedContent[productId] -= 1;
+
+        if (updatedContent[productId] < 1) {
+          delete updatedContent[productId];
+        }
+      } else {
+        return {
+          success: false,
+          message: "Produktet finnes ikke i handlekurven.",
+        };
+      }
+    }
 
     if (cart) {
       await db.update(carts).set({

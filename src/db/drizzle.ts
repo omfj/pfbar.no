@@ -1,9 +1,26 @@
-import { getDbClient } from "./pg";
 import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import * as schema from "./schemas";
 
-const client = getDbClient();
+const globalForPool = globalThis as unknown as {
+  pool: ReturnType<typeof postgres> | undefined;
+};
 
-export const db = drizzle(client, {
+let pool;
+
+if (process.env.NODE_ENV !== "production") {
+  if (!globalForPool.pool) {
+    globalForPool.pool = createPool();
+  }
+  pool = globalForPool.pool;
+} else {
+  pool = createPool();
+}
+
+function createPool() {
+  return postgres(process.env.DATABASE_URL!);
+}
+
+export const db = drizzle(pool, {
   schema,
 });
