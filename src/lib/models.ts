@@ -10,3 +10,9 @@ export function getProductById(id: string) {
     where: (product) => eq(product.id, id),
   });
 }
+
+export function getCartByUserId(userId: string) {
+  return db.query.carts.findFirst({
+    where: (cart) => eq(cart.userId, userId),
+  });
+}

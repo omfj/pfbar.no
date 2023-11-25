@@ -1,15 +1,9 @@
-import {
-  sqliteTable,
-  text,
-  integer,
-  primaryKey,
-} from "drizzle-orm/sqlite-core";
+import { pgTable, primaryKey, text, timestamp } from "drizzle-orm/pg-core";
 import { baskets, users } from ".";
 import { nanoid } from "nanoid";
 import { relations } from "drizzle-orm/relations";
-import { sql } from "drizzle-orm";
 
-export const orders = sqliteTable(
+export const orders = pgTable(
   "order",
   {
     id: text("id")
@@ -21,13 +15,13 @@ export const orders = sqliteTable(
     status: text("status", { enum: ["pending", "completed"] })
       .notNull()
       .default("pending"),
-    createdAt: integer("created_at", { mode: "timestamp" })
+    createdAt: timestamp("created_at")
       .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
+      .defaultNow(),
   },
   (table) => ({
     pk: primaryKey({ columns: [table.id] }),
-  })
+  }),
 );
 
 export const ordersRelations = relations(orders, ({ one, many }) => ({

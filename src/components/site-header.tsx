@@ -2,6 +2,7 @@ import { getSession } from "@/auth/utils";
 import Link from "next/link";
 import { NavLink } from "./nav-link";
 import { SignOutNavButton } from "./sign-out-nav-button";
+import { CartButton } from "./cart-button";
 
 export async function SiteHeader() {
   const session = await getSession();
@@ -15,6 +16,7 @@ export async function SiteHeader() {
       <nav>
         <ul className="flex items-center gap-4">
           <NavLink href="/meny">Meny</NavLink>
+          <CartButton />
           {session && <NavLink href="/profil">Min profil</NavLink>}
           {session && <SignOutNavButton />}
           {!session && <NavLink href="/logg-inn">Logg inn</NavLink>}

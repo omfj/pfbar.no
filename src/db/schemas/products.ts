@@ -1,12 +1,7 @@
-import {
-  sqliteTable,
-  text,
-  integer,
-  primaryKey,
-} from "drizzle-orm/sqlite-core";
+import { boolean, pgTable, primaryKey, text } from "drizzle-orm/pg-core";
 import { nanoid } from "nanoid";
 
-export const products = sqliteTable(
+export const products = pgTable(
   "product",
   {
     id: text("id")
@@ -15,11 +10,11 @@ export const products = sqliteTable(
     name: text("name").notNull(),
     description: text("description").notNull(),
     imageUrl: text("image_url"),
-    isEmpty: integer("is_empty", { mode: "boolean" }).notNull().default(false),
+    isEmpty: boolean("is_empty").notNull().default(false),
   },
   (table) => ({
     pk: primaryKey({ columns: [table.id] }),
-  })
+  }),
 );
 
 export type Product = (typeof products)["$inferSelect"];

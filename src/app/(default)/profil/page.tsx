@@ -1,4 +1,6 @@
 import { getSession } from "@/auth/utils";
+import { Container } from "@/components/ui/container";
+import { Heading } from "@/components/ui/heading";
 import { redirect } from "next/navigation";
 
 export default async function Profile() {
@@ -9,8 +11,8 @@ export default async function Profile() {
   }
 
   return (
-    <main>
-      <h1>Min profil</h1>
-    </main>
+    <Container as="main">
+      <Heading>Min profil</Heading>
+    </Container>
   );
 }

@@ -1,15 +1,9 @@
-import {
-  sqliteTable,
-  text,
-  integer,
-  primaryKey,
-  index,
-} from "drizzle-orm/sqlite-core";
+import { index, integer, pgTable, primaryKey, text } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { orders, products } from ".";
 
-export const baskets = sqliteTable(
+export const baskets = pgTable(
   "basket",
   {
     id: text("id")
@@ -26,7 +20,7 @@ export const baskets = sqliteTable(
   (table) => ({
     pk: primaryKey({ columns: [table.id] }),
     orderIdx: index("order_idx").on(table.orderId),
-  })
+  }),
 );
 
 export const basketsRelations = relations(baskets, ({ one }) => ({

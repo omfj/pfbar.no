@@ -1,17 +1,15 @@
 import { accounts, sessions, users, verificationTokens } from "@/db/schemas";
-import { BaseSQLiteDatabase } from "drizzle-orm/sqlite-core";
-import { eq, and } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { Adapter, AdapterAccount } from "next-auth/adapters";
 import { db } from "@/db/drizzle";
 
-export function SQLiteDrizzleAdapter(client: typeof db): Adapter {
+export function DrizzleAdapter(client: typeof db): Adapter {
   return {
-    createUser(data) {
+    async createUser(data) {
       return client
         .insert(users)
         .values({ ...data, id: crypto.randomUUID() })
-        .returning()
-        .get();
+        .returning().then((res) => res[0] ?? null);
     },
     async getUser(data) {
       return client
@@ -28,7 +26,9 @@ export function SQLiteDrizzleAdapter(client: typeof db): Adapter {
         .then((res) => res[0] ?? null);
     },
     async createSession(data) {
-      return await client.insert(sessions).values(data).returning().get();
+      return await client.insert(sessions).values(data).returning().then((
+        res,
+      ) => res[0] ?? null);
     },
     async getSessionAndUser(data) {
       return client
@@ -41,25 +41,25 @@ export function SQLiteDrizzleAdapter(client: typeof db): Adapter {
         .innerJoin(users, eq(users.id, sessions.userId))
         .then((res) => res[0] ?? null);
     },
-    updateUser(data) {
+    async updateUser(data) {
       if (!data.id) {
         throw new Error("No user id.");
       }
 
-      return client
+      return await client
         .update(users)
         .set(data)
         .where(eq(users.id, data.id))
         .returning()
-        .get();
+        .then((res) => res[0] ?? null);
     },
-    updateSession(data) {
+    async updateSession(data) {
       return client
         .update(sessions)
         .set(data)
         .where(eq(sessions.sessionToken, data.sessionToken))
         .returning()
-        .get();
+        .then((res) => res[0] ?? null);
     },
     async linkAccount(rawAccount) {
       const updatedAccount = await client
@@ -90,34 +90,32 @@ export function SQLiteDrizzleAdapter(client: typeof db): Adapter {
         .where(
           and(
             eq(accounts.provider, account.provider),
-            eq(accounts.providerAccountId, account.providerAccountId)
-          )
+            eq(accounts.providerAccountId, account.providerAccountId),
+          ),
         )
         .then((res) => res[0] ?? null);
 
       return results?.user;
     },
-    deleteSession(sessionToken) {
-      return (
-        client
-          .delete(sessions)
-          .where(eq(sessions.sessionToken, sessionToken))
-          .returning()
-          .get() ?? null
-      );
+    async deleteSession(sessionToken) {
+      await client
+        .delete(sessions)
+        .where(eq(sessions.sessionToken, sessionToken));
     },
     createVerificationToken(token) {
-      return client.insert(verificationTokens).values(token).returning().get();
+      return client.insert(verificationTokens).values(token).returning().then((
+        res,
+      ) => res[0] ?? null);
     },
-    useVerificationToken(token) {
+    async useVerificationToken(token) {
       try {
-        return client
+        return await client
           .delete(verificationTokens)
           .where(
             and(
               eq(verificationTokens.identifier, token.identifier),
-              eq(verificationTokens.token, token.token)
-            )
+              eq(verificationTokens.token, token.token),
+            ),
           )
           .returning()
           .then((res) => res[0] ?? null);
@@ -125,8 +123,11 @@ export function SQLiteDrizzleAdapter(client: typeof db): Adapter {
         throw new Error("No verification token found.");
       }
     },
-    deleteUser(id) {
-      return client.delete(users).where(eq(users.id, id)).returning().get();
+    async deleteUser(id) {
+      await client.delete(users).where(eq(users.id, id)).returning()
+        .then((
+          res,
+        ) => res[0] ?? null);
     },
     unlinkAccount(account) {
       client
@@ -134,10 +135,9 @@ export function SQLiteDrizzleAdapter(client: typeof db): Adapter {
         .where(
           and(
             eq(accounts.providerAccountId, account.providerAccountId),
-            eq(accounts.provider, account.provider)
-          )
-        )
-        .run();
+            eq(accounts.provider, account.provider),
+          ),
+        );
 
       return undefined;
     },

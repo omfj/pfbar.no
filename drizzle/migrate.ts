@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { db } from "@/db/drizzle";
-import { migrate } from "drizzle-orm/libsql/migrator";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
 
 console.log("🚚 Starting migrations...");
 

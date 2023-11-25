@@ -1,16 +1,19 @@
 "use client";
 
-import { useCartStore } from "@/stores/cart";
+import { addProductToCart } from "@/actions/add-product-to-cart";
+import { useRouter } from "next/navigation";
 
 type AddToCartProps = {
   productId: string;
 };
 
 export function AddToCart({ productId }: AddToCartProps) {
-  const cartStore = useCartStore();
+  const router = useRouter();
 
-  const handleAddToCart = () => {
-    cartStore.addToCart(productId);
+  const handleAddToCart = async () => {
+    await addProductToCart(productId);
+
+    router.refresh();
   };
 
   return (

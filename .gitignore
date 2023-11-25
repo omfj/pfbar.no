@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# database
+postgres-data
+
 # cloudflare
 .wrangler
 

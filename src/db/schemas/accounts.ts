@@ -1,13 +1,8 @@
-import {
-  sqliteTable,
-  text,
-  integer,
-  primaryKey,
-} from "drizzle-orm/sqlite-core";
+import { integer, pgTable, primaryKey, text } from "drizzle-orm/pg-core";
 import { AdapterAccount } from "next-auth/adapters";
 import { users } from ".";
 
-export const accounts = sqliteTable(
+export const accounts = pgTable(
   "account",
   {
     userId: text("user_id")
@@ -28,7 +23,7 @@ export const accounts = sqliteTable(
     compoundKey: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
-  })
+  }),
 );
 
 export type Account = (typeof accounts)["$inferSelect"];

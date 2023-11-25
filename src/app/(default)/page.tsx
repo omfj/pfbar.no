@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/lib/products";
+import { getAllProducts } from "@/lib/models";
 
 export default async function Home() {
   const products = await getAllProducts();

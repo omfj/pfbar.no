@@ -1,6 +1,6 @@
 import { AuthOptions, DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { SQLiteDrizzleAdapter } from "./adapter";
+import { DrizzleAdapter } from "./adapter";
 import { db } from "@/db/drizzle";
 
 declare module "next-auth" {
@@ -14,7 +14,7 @@ declare module "next-auth" {
 }
 
 export const options: AuthOptions = {
-  adapter: SQLiteDrizzleAdapter(db),
+  adapter: DrizzleAdapter(db),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,

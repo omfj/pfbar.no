@@ -1,5 +1,6 @@
 import { AddToCart } from "@/components/add-to-cart-button";
-import { getProductById } from "@/lib/products";
+import { Container } from "@/components/ui/container";
+import { getProductById } from "@/lib/models";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -33,7 +34,7 @@ export default async function Product({ params }: Props) {
   const product = await getData(params.id);
 
   return (
-    <main className="max-w-6xl mx-auto my-10 grid grid-cols-2">
+    <Container as="main" className="grid grid-cols-1 md:grid-cols-2">
       <div></div>
       <div className="flex flex-col gap-8">
         <div>
@@ -43,6 +44,6 @@ export default async function Product({ params }: Props) {
 
         <AddToCart productId={product.id} />
       </div>
-    </main>
+    </Container>
   );
 }

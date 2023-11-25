@@ -1,20 +1,10 @@
 import "dotenv/config";
 import { db } from "@/db/drizzle";
 import { products } from "@/db/schemas";
+import { commonProducts } from "./seed-data/products";
 
 async function seed() {
-  db.insert(products)
-    .values([
-      {
-        name: "Gin Tonic",
-        description: "A classic, refreshing cocktail",
-      },
-      {
-        name: "Mojito",
-        description: "A classic, refreshing cocktail",
-      },
-    ])
-    .run();
+  await db.insert(products).values(commonProducts);
 }
 
 console.log("🌱 Starting seed...");
