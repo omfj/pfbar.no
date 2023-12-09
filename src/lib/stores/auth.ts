@@ -1,5 +1,5 @@
 import { auth } from '$lib/firebase';
-import { GoogleAuthProvider, signInWithPopup, signOut, type User } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithRedirect, signOut, type User } from 'firebase/auth';
 import { writable } from 'svelte/store';
 
 type TAuthStore = {
@@ -14,7 +14,7 @@ export const authStore = writable<TAuthStore>({
 
 export const authHandlers = {
 	signIn: async () => {
-		await signInWithPopup(auth, new GoogleAuthProvider());
+		await signInWithRedirect(auth, new GoogleAuthProvider());
 	},
 	signOut: async () => {
 		await signOut(auth);
