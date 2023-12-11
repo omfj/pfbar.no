@@ -44,7 +44,10 @@
 		<div class="space-y-4">
 			<h2 class="text-xl font-medium">Administrator</h2>
 
-			<a href="/bestillinger" class="hover:underline">Se alle bestillinger</a>
+			<div>
+				<a href="/bestillinger" class="block hover:underline">Se alle bestillinger</a>
+				<a href="/produkter/lag" class="block hover:underline">Lag et produkt</a>
+			</div>
 		</div>
 	{/if}
 
