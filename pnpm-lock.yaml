@@ -9,8 +9,11 @@ dependencies:
     specifier: 1.0.0-beta.0
     version: 1.0.0-beta.0(lucia@3.0.0-beta.11)
   arctic:
-    specifier: ^0.9.0
-    version: 0.9.0
+    specifier: ^0.10.0
+    version: 0.10.0
+  clsx:
+    specifier: ^2.0.0
+    version: 2.0.0
   drizzle-orm:
     specifier: ^0.29.1
     version: 0.29.1(@types/pg@8.10.9)(pg@8.11.3)
@@ -1680,8 +1683,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /arctic@0.9.0:
-    resolution: {integrity: sha512-CbvUpBsqeK4j2RK/1cVqlWjRtq2PPYiiDp81M6qvR8ZRGz7VP99UAqLdT6Oe0GIvlkYY9LeJGI5cBFkl7rMG4Q==}
+  /arctic@0.10.0:
+    resolution: {integrity: sha512-yMAPbBPQfewJ9gwPt1YoTaNJkWrbtoVkXJip+8qxWwN5Aa0pOnNRYmKpVcvGK3hRMXy+NszgDomt3oa4np6ZGQ==}
     dependencies:
       oslo: 0.24.0
     dev: false
@@ -1884,6 +1887,11 @@ packages:
       memoizee: 0.4.15
       timers-ext: 0.1.7
     dev: true
+
+  /clsx@2.0.0:
+    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}

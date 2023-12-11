@@ -7,7 +7,9 @@ export async function GET() {
 	const state = generateState();
 	const codeVerifier = generateCodeVerifier();
 
-	const url = await googleAuth.createAuthorizationURL(codeVerifier);
+	const url = await googleAuth.createAuthorizationURL(state, codeVerifier, {
+		scopes: ['openid', 'email', 'profile']
+	});
 
 	const headers = new Headers();
 

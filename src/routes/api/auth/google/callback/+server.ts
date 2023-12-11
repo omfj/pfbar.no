@@ -8,7 +8,7 @@ import { generateId } from 'lucia';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ cookies, url }) => {
-	const stateCookie = cookies.get('oauth_state');
+	const stateCookie = cookies.get('state');
 	const codeVerifier = cookies.get('code_verifier');
 
 	const state = url.searchParams.get('state');
@@ -73,7 +73,6 @@ export const GET: RequestHandler = async ({ cookies, url }) => {
 	} catch (e) {
 		console.log(e);
 		if (e instanceof OAuth2RequestError) {
-			// bad verification code, invalid credentials, etc
 			return new Response(null, {
 				status: 400
 			});
@@ -94,9 +93,11 @@ async function getGoogleUSer(accessToken: string) {
 
 type GoogleUser = {
 	sub: string;
-	email: string;
+	name: string;
 	given_name: string;
 	family_name: string;
-	name: string;
 	picture: string;
+	email: string;
+	email_verified: boolean;
+	locale: string;
 };

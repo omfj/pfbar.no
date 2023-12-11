@@ -47,7 +47,8 @@
 	},
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "1.0.0-beta.0",
-		"arctic": "^0.9.0",
+		"arctic": "^0.10.0",
+		"clsx": "^2.0.0",
 		"drizzle-orm": "^0.29.1",
 		"lucia": "3.0.0-beta.11",
 		"nanoid": "^5.0.4",
