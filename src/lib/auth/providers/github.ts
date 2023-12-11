@@ -1,5 +1,6 @@
 import { GitHub } from 'arctic';
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
+import { baseURL } from '$lib/utils';
 
 type GithubUser = {
 	login: string;
@@ -13,7 +14,7 @@ type GithubUser = {
 export const GITHUB_PROVIDER_ID = 'github';
 
 export const githubAuth = new GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, {
-	redirectURI: 'http://localhost:5173/api/auth/github/callback'
+	redirectURI: `${baseURL}/api/auth/github/callback`
 });
 
 export async function getGithubUser(accessToken: string) {
