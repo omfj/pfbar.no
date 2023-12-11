@@ -1,16 +1,21 @@
 <script lang="ts">
 	import clsx from 'clsx';
+	import Icon from '@iconify/svelte';
 
 	const socialLogins = [
 		{
 			name: 'GitHub',
 			url: '/api/auth/github',
-			color: 'bg-github-background text-github-foreground'
+			color: 'bg-github-background text-github-foreground',
+			icon: 'mdi:github',
+			iconColor: 'invert-0'
 		},
 		{
 			name: 'Google',
 			url: '/api/auth/google',
-			color: 'bg-white border'
+			color: 'bg-white border',
+			icon: 'mdi:google',
+			iconColor: ''
 		}
 	];
 </script>
@@ -28,7 +33,10 @@
 						login.color
 					)}
 				>
-					<span class="mx-auto">{login.name}</span>
+					<div class="flex items-center gap-2 mx-auto">
+						<Icon class={clsx('w-6 h-6', login.iconColor)} icon={login.icon} />
+						<span>{login.name}</span>
+					</div>
 				</a>
 			</li>
 		{/each}

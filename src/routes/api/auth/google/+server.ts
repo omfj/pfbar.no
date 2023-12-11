@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import { googleAuth } from '$lib/auth/providers';
+import { googleAuth } from '$lib/auth/providers/google';
 import { generateCodeVerifier, generateState } from 'arctic';
 import { serializeCookie } from 'oslo/cookie';
 

@@ -9,7 +9,7 @@
 	<title>Profil | {data.user!.id}</title>
 </svelte:head>
 
-<main class="container space-y-8">
+<main class="container space-y-8 max-w-lg">
 	<h1 class="text-2xl font-semibold">{data.user!.name ?? data.user!.id}</h1>
 
 	<div class="space-y-4">
@@ -22,7 +22,7 @@
 					type="text"
 					id="name"
 					name="name"
-					value={data.user!.name}
+					value={data.user?.name ?? ''}
 				/>
 			</div>
 			<div class="flex flex-col gap-1">
@@ -32,13 +32,21 @@
 					type="email"
 					id="email"
 					name="email"
-					value={data.user!.email}
+					value={data.user?.email ?? ''}
 				/>
 			</div>
 
 			<button class="px-4 py-1 bg-pink-200 hover:bg-pink-300" type="submit">Lagre</button>
 		</form>
 	</div>
+
+	{#if data.user && data.user.role !== 'user'}
+		<div class="space-y-4">
+			<h2 class="text-xl font-medium">Administrator</h2>
+
+			<a href="/bestillinger" class="hover:underline">Se alle bestillinger</a>
+		</div>
+	{/if}
 
 	<div class="space-y-4">
 		<h2 class="text-xl font-medium">Bestillinger</h2>

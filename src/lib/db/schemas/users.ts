@@ -1,6 +1,6 @@
 import { pgTable, text, primaryKey, uniqueIndex } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
-import { orders, sessions } from '.';
+import { orders, roleEnum, sessions } from '.';
 
 export const users = pgTable(
 	'user',
@@ -9,7 +9,8 @@ export const users = pgTable(
 		name: text('name'),
 		email: text('email'),
 		provider: text('provider'),
-		providerId: text('provider_id')
+		providerId: text('provider_id'),
+		role: roleEnum('role').notNull().default('user')
 	},
 	(t) => ({
 		pk: primaryKey({ columns: [t.id] }),

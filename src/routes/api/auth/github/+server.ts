@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import { githubAuth } from '$lib/auth/providers';
+import { githubAuth } from '$lib/auth/providers/github';
 import { generateState } from 'arctic';
 import { serializeCookie } from 'oslo/cookie';
 

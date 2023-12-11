@@ -1,8 +1,18 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { db } from '$lib/db/drizzle';
-import { eq } from 'drizzle-orm';
+import { desc, eq, sql } from 'drizzle-orm';
 import { orders, users } from '$lib/db/schemas';
+
+const getUserOrders = db.query.orders
+	.findMany({
+		where: () => eq(orders.userId, sql.placeholder('userId')),
+		orderBy: [desc(orders.createdAt)],
+		with: {
+			product: true
+		}
+	})
+	.prepare('getUserOrders');
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const userId = locals.user?.id;
@@ -11,11 +21,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(301, '/');
 	}
 
-	const userOrders = await db.query.orders.findMany({
-		where: () => eq(orders.userId, userId),
-		with: {
-			product: true
-		}
+	const userOrders = await getUserOrders.execute({
+		userId
 	});
 
 	return {

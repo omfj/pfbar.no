@@ -1,4 +1,4 @@
-import { googleAuth } from '$lib/auth/providers';
+import { GOOGLE_PROVIDER_ID, getGoogleUSer, googleAuth } from '$lib/auth/providers/google';
 import { lucia } from '$lib/auth/lucia';
 import { db } from '$lib/db/drizzle';
 import { users } from '$lib/db/schemas';
@@ -34,10 +34,9 @@ export const GET: RequestHandler = async ({ cookies, url }) => {
 
 		const googleUser = await getGoogleUSer(tokens.accessToken);
 
-		console.log(googleUser);
-
 		const existingUser = await db.query.users.findFirst({
-			where: (user) => and(eq(user.providerId, googleUser.sub), eq(user.provider, 'google'))
+			where: (user) =>
+				and(eq(user.providerId, googleUser.sub), eq(user.provider, GOOGLE_PROVIDER_ID))
 		});
 
 		if (existingUser) {
@@ -57,7 +56,7 @@ export const GET: RequestHandler = async ({ cookies, url }) => {
 			id: userId,
 			name: googleUser.name,
 			email: googleUser.email,
-			provider: 'google',
+			provider: GOOGLE_PROVIDER_ID,
 			providerId: googleUser.sub
 		});
 
@@ -71,7 +70,7 @@ export const GET: RequestHandler = async ({ cookies, url }) => {
 			}
 		});
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		if (e instanceof OAuth2RequestError) {
 			return new Response(null, {
 				status: 400
@@ -81,23 +80,4 @@ export const GET: RequestHandler = async ({ cookies, url }) => {
 			status: 500
 		});
 	}
-};
-
-async function getGoogleUSer(accessToken: string) {
-	return (await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
-		headers: {
-			Authorization: `Bearer ${accessToken}`
-		}
-	}).then((res) => res.json())) as GoogleUser;
-}
-
-type GoogleUser = {
-	sub: string;
-	name: string;
-	given_name: string;
-	family_name: string;
-	picture: string;
-	email: string;
-	email_verified: boolean;
-	locale: string;
 };
