@@ -8,7 +8,16 @@ export default {
 				center: true,
 				padding: '1rem',
 				screens: {
-					'2xl': '1280px'
+					sm: '100%',
+					md: '100%',
+					lg: '1024px',
+					xl: '1280px'
+				}
+			},
+			colors: {
+				github: {
+					background: '#24292e',
+					foreground: '#f1f1f1'
 				}
 			}
 		}

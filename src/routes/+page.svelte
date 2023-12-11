@@ -1,4 +1,9 @@
+<svelte:head>
+	<title>Pink Flamingo</title>
+</svelte:head>
+
 <main class="container">
-	<h1>Welcome to SvelteKit</h1>
-	<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+	<div class="h-96 flex flex-col justify-center items-center">
+		<h1 class="text-7xl font-bold text-center">Velkommen til Pink Flamingo!</h1>
+	</div>
 </main>

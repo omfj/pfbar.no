@@ -1,0 +1,55 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1702256929547,
+      "tag": "0000_typical_mysterio",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1702260210465,
+      "tag": "0001_unusual_liz_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1702260329552,
+      "tag": "0002_overrated_rockslide",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1702261702860,
+      "tag": "0003_misty_krista_starr",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1702262033575,
+      "tag": "0004_dry_eternals",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1702303075445,
+      "tag": "0005_nifty_brood",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1702312304932,
+      "tag": "0006_next_sphinx",
+      "breakpoints": true
+    }
+  ]
+}
